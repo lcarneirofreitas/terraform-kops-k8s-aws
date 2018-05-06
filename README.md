@@ -1,71 +1,86 @@
 # TERRAFORM AND KOPS KUBERNETES AWS
 
 - install terraform
--------------------
-
+```
 curl -LO https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
 unzip terraform_0.11.7_linux_amd64.zip
 chmod +x terraform_0.11.7_linux_amd64
 sudo mv terraform_0.11.7_linux_amd64 /usr/local/bin/terraform
 
+```
 
 - install kops
 --------------
 
+```
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 chmod +x kops-linux-amd64
 sudo mv kops-linux-amd64 /usr/local/bin/kops
 
+```
 
 - install kubectl
 -----------------
 
+```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 
+```
 
 - create amazon s3
 ------------------
 
+```
 aws --region=us-east-1 s3api create-bucket --bucket kubernetes-state-collystore
 aws --region=us-east-1 s3api create-bucket --bucket terraform-state-collystore
 
+```
 
 - versioning amazon s3
 ----------------------
 
+```
 aws --region=us-east-1 s3api put-bucket-versioning --bucket kubernetes-state-collystore --versioning-configuration Status=Enabled
 aws --region=us-east-1 s3api put-bucket-versioning --bucket terraform-state-collystore --versioning-configuration Status=Enabled
 
+```
 
 - export s3 bucket to kops
 --------------------------
 
+```
 export KOPS_STATE_STORE=s3://kubernetes-state-collystore
 
+```
 
 - configure dns route53 amazon
 ------------------------------
 
+```
 ID=$(uuidgen) && \
 aws route53 create-hosted-zone \
 --name collystore.com.br \
 --caller-reference $ID
 
+```
 
 - running terraform plan and apply
 ----------------------------------
 
+```
 cd terraform && \
 terraform init
 terraform plan
 terraform apply
 
+```
 
 - create cluster kubernetes kops
 --------------------------------
 
+```
 kops create cluster \
     --name collystore.com.br \
     --node-count 2 \
@@ -81,10 +96,12 @@ kops create cluster \
     --vpc vpc-f292cb89 \
     --yes
 
+```
 
 - validando cluster kubernetes
 ------------------------------
 
+```
 kops validate cluster --state s3://kubernetes-state-collystore --name collystore.com.br
 
 kubectl get nodes --show-labels
@@ -93,23 +110,30 @@ ssh admin@bastion.collystore.com.br
 
 kubectl -n kube-system get pod
 
+```
 
 
 - habilitando interface web dashboard kubernetes kops
 -----------------------------------------------------
 
+```
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
+```
 -- access 1
 -----------
+```
 kubectl proxy
 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
+```
 -- access 2
 -----------
+```
 kubectl config view --minify
 https://api.collystore.com.br/ui/
 
+```
 
 ##################
 ## TESTS DEPLOY ##
@@ -118,65 +142,86 @@ https://api.collystore.com.br/ui/
 - create pod server apache + php
 ---------------------------------
 
+```
 cd kubernetes
 kubectl create -f app1/prod/deployment.json
 
+```
 - create loadbalance to access application
 ------------------------------------------
 
+```
 kubectl create -f app1/prod/loadbalancer.json
 
+```
 - discovery dns loadbalance to access application
 -------------------------------------------------
 
+```
 kubectl describe services | grep -w "LoadBalancer Ingress"
 
+```
 - validade access to application
 --------------------------------
 
+```
 watch -n1 "curl -s $(kubectl describe services | grep -w "LoadBalancer Ingress" | awk '{print $3}')"
 
+```
 - scale application apache + php
 --------------------------------
 
+```
 kubectl scale --replicas=3 -f app1/prod/deployment.json
 watch -n1 'kubectl get pod
+```
 
 - change image deploy
 ---------------------
 
+```
 sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.2#g' app1/prod/deployment.json
 kubectl apply -f app1/prod/deployment.json
 watch -n1 'kubectl get pod'
 
+```
+```
 sed -i 's#lcarneirofreitas/image_test_apachephp:0.2#lcarneirofreitas/image_test_apachephp:0.3#g' app1/prod/deployment.json
 kubectl apply -f app1/prod/deployment.json
 watch -n1 'kubectl get pod'
 
+```
 - deploy with problems
 ----------------------
 
+```
 sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.7#g' app1/prod/deployment.json
 kubectl apply -f app1/prod/deployment.json
 watch -n1 'kubectl get pod'
 
+```
 - get yaml deployment
 ---------------------
 
+```
 kubectl get deployment apache-prod-deployment -o yaml > apache-prod-deployment.yaml
 
+```
 - create deployment kafka
 -------------------------
 
+```
 https://github.com/kubernetes/contrib/tree/master/statefulsets/kafka
 
 kubectl create -f https://raw.githubusercontent.com/kubernetes/contrib/master/statefulsets/kafka/kafka.yaml
 kubectl delete -f https://raw.githubusercontent.com/kubernetes/contrib/master/statefulsets/kafka/kafka.yaml
 
+```
 Obs: nao vai funcionar por causa de recursos de memoria e volume montado
 
 - update nodes cluster kubernetes kops
 --------------------------------------
+```
 https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
 
 kops edit ig nodes
@@ -193,56 +238,49 @@ master-us-east-1b	Master	m4.large	1	1	us-east-1b
 master-us-east-1c	Master	m4.large	1	1	us-east-1c
 nodes			Node	t2.micro	1	1	us-east-1a,us-east-1b,us-east-1c
 
+```
 
 
 - describe deployments
 ----------------------
 
+```
 kubectl describe deployments
 
+```
 
 
 
 - delete cluster kubernetes
----------------------------
 
+```
 kops delete cluster --state=s3://kubernetes-state-collystore collystore.com.br --yes
 
+```
 
 - delete networks terraform
----------------------------
 
+```
 terraform destroy
 
-
-
-
-
-
-- habilitando metricas para autoscaling kubernetes
---------------------------------------------------
-
-https://github.com/kubernetes/kops/blob/master/docs/addons.md
-kubectl create -f https://raw.githubusercontent.com/kubernetes/kops/master/addons/monitoring-standalone/v1.7.0.yaml
-
-
-- mudando o contexto de minikube para o k8s na aws
---------------------------------------------------
-
-kubectl config use-context collystore.com.br
-
+```
 
 - REFERENCIAS
---------------
 
 https://aws.amazon.com/blogs/compute/kubernetes-clusters-aws-kops/
-https://ryaneschinger.com/blog/kubernetes-aws-vpc-kops-terraform/
-https://github.com/kubernetes/kops/blob/master/docs/aws.md#configure-dns
-https://kubecloud.io/setting-up-a-highly-available-kubernetes-cluster-with-private-networking-on-aws-using-kops-65f7a94782ef
-https://www.youtube.com/watch?v=IImQrJWbaDo
-https://medium.com/cloud-academy-inc/setup-kubernetes-on-aws-using-kops-877f02d12fc1
-http://rundeck.org/docs/administration/setting-up-an-rdb-datasource.html
-https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2
 
+https://ryaneschinger.com/blog/kubernetes-aws-vpc-kops-terraform/
+
+https://github.com/kubernetes/kops/blob/master/docs/aws.md#configure-dns
+
+https://kubecloud.io/setting-up-a-highly-available-kubernetes-cluster-with-private-networking-on-aws-using-kops-65f7a94782ef
+
+https://www.youtube.com/watch?v=IImQrJWbaDo
+
+https://medium.com/cloud-academy-inc/setup-kubernetes-on-aws-using-kops-877f02d12fc1
+
+http://rundeck.org/docs/administration/setting-up-an-rdb-datasource.html
+
+https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2
 
 
