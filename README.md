@@ -73,7 +73,7 @@ kops create cluster \
     --yes
 ```
 
-- validando cluster kubernetes
+- validating cluster kubernetes
 ```
 kops validate cluster --state s3://kubernetes-state-collystore --name collystore.com.br
 
@@ -84,24 +84,24 @@ ssh admin@bastion.collystore.com.br
 kubectl -n kube-system get pod
 ```
 
-- habilitando interface web dashboard kubernetes kops
+- enabling web interface dashboard kubernetes kops
 ```
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
 
--- access 1
+- access 1
 ```
 kubectl proxy
-http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 ```
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
--- access 2
+- access 2
 ```
 kubectl config view --minify
-https://api.collystore.com.br/ui/
 ```
+https://api.collystore.com.br/ui/
 
-# Tests Deploy
+# Tests Kubernetes
 
 - create pod server apache + php
 ```
@@ -156,22 +156,26 @@ kubectl get deployment apache-prod-deployment -o yaml > apache-prod-deployment.y
 ```
 
 - create deployment kafka
-```
+
 https://github.com/kubernetes/contrib/tree/master/statefulsets/kafka
+```
 
 kubectl create -f https://raw.githubusercontent.com/kubernetes/contrib/master/statefulsets/kafka/kafka.yaml
+
 kubectl delete -f https://raw.githubusercontent.com/kubernetes/contrib/master/statefulsets/kafka/kafka.yaml
 
 ```
 
-Obs: nao vai funcionar por causa de recursos de memoria e volume montado
+Obs: will not work because of memory resources and mounted volume
 
 - update nodes cluster kubernetes kops
-```
-https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
 
+https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
+```
 kops edit ig nodes
+
 kops update cluster collystore.com.br --yes
+
 kops rolling-update cluster
 
 kops get ig
@@ -201,7 +205,7 @@ terraform destroy
 
 ```
 
-- REFERENCIAS
+- References
 
 https://aws.amazon.com/blogs/compute/kubernetes-clusters-aws-kops/
 
