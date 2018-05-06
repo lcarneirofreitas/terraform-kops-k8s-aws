@@ -1,0 +1,30 @@
+{
+  "apiVersion": "extensions/v1beta1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "apache-prod-deployment"
+  },
+  "spec": {
+    "replicas": 2,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "apache-prod"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "webapp",
+            "image": "lcarneirofreitas/image_test_apachephp:0.2",
+            "ports": [
+              {
+                "containerPort": 80
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

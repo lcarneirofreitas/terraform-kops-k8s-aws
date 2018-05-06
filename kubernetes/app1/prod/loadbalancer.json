@@ -1,0 +1,20 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "apache-prod-loadbalancer"
+  },
+  "spec": {
+    "ports": [
+    {
+      "name": "apache",
+      "port": 80,
+      "targetPort": 80
+    }
+  ],
+    "selector": {
+      "app": "apache-prod"
+    },
+    "type": "LoadBalancer"
+  }
+}

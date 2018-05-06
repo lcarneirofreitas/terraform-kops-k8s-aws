@@ -1,0 +1,706 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "6"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"apache-prod-deployment","namespace":"default"},"spec":{"replicas":2,"template":{"metadata":{"labels":{"app":"apache-prod"}},"spec":{"containers":[{"image":"lcarneirofreitas/image_test_apachephp:0.2","name":"webapp","ports":[{"containerPort":80}]}]}}}}
+    creationTimestamp: 2018-05-06T01:40:55Z
+    generation: 11
+    labels:
+      app: apache-prod
+    name: apache-prod-deployment
+    namespace: default
+    resourceVersion: "9102"
+    selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/apache-prod-deployment
+    uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: apache-prod
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.2
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2018-05-06T01:59:44Z
+      lastUpdateTime: 2018-05-06T01:59:44Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 11
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: extensions/v1beta1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "3"
+      deployment.kubernetes.io/revision-history: "1"
+    creationTimestamp: 2018-05-06T01:40:55Z
+    generation: 13
+    labels:
+      app: apache-prod
+      pod-template-hash: "1639748372"
+    name: apache-prod-deployment-5b7fc8d7c6
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: apache-prod-deployment
+      uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+    resourceVersion: "5746"
+    selfLink: /apis/extensions/v1beta1/namespaces/default/replicasets/apache-prod-deployment-5b7fc8d7c6
+    uid: 8478299c-50ce-11e8-b513-028a0ce7aef4
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: apache-prod
+        pod-template-hash: "1639748372"
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+          pod-template-hash: "1639748372"
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.3
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 13
+    replicas: 0
+- apiVersion: extensions/v1beta1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "5"
+    creationTimestamp: 2018-05-06T02:21:44Z
+    generation: 3
+    labels:
+      app: apache-prod
+      pod-template-hash: "4102733592"
+    name: apache-prod-deployment-8546c779f6
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: apache-prod-deployment
+      uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+    resourceVersion: "6276"
+    selfLink: /apis/extensions/v1beta1/namespaces/default/replicasets/apache-prod-deployment-8546c779f6
+    uid: 3878d8a7-50d4-11e8-b513-028a0ce7aef4
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: apache-prod
+        pod-template-hash: "4102733592"
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+          pod-template-hash: "4102733592"
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.7
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: extensions/v1beta1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "6"
+      deployment.kubernetes.io/revision-history: 2,4
+    creationTimestamp: 2018-05-06T02:11:35Z
+    generation: 8
+    labels:
+      app: apache-prod
+      pod-template-hash: "888356789"
+    name: apache-prod-deployment-ddd79bcdf
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: apache-prod-deployment
+      uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+    resourceVersion: "9099"
+    selfLink: /apis/extensions/v1beta1/namespaces/default/replicasets/apache-prod-deployment-ddd79bcdf
+    uid: cd6e9ed2-50d2-11e8-b513-028a0ce7aef4
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: apache-prod
+        pod-template-hash: "888356789"
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+          pod-template-hash: "888356789"
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.2
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+- apiVersion: apps/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "6"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"apache-prod-deployment","namespace":"default"},"spec":{"replicas":2,"template":{"metadata":{"labels":{"app":"apache-prod"}},"spec":{"containers":[{"image":"lcarneirofreitas/image_test_apachephp:0.2","name":"webapp","ports":[{"containerPort":80}]}]}}}}
+    creationTimestamp: 2018-05-06T01:40:55Z
+    generation: 11
+    labels:
+      app: apache-prod
+    name: apache-prod-deployment
+    namespace: default
+    resourceVersion: "9102"
+    selfLink: /apis/apps/v1beta1/namespaces/default/deployments/apache-prod-deployment
+    uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: apache-prod
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.2
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: 2018-05-06T01:59:44Z
+      lastUpdateTime: 2018-05-06T01:59:44Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 11
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1beta2
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "3"
+      deployment.kubernetes.io/revision-history: "1"
+    creationTimestamp: 2018-05-06T01:40:55Z
+    generation: 13
+    labels:
+      app: apache-prod
+      pod-template-hash: "1639748372"
+    name: apache-prod-deployment-5b7fc8d7c6
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: apache-prod-deployment
+      uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+    resourceVersion: "5746"
+    selfLink: /apis/apps/v1beta2/namespaces/default/replicasets/apache-prod-deployment-5b7fc8d7c6
+    uid: 8478299c-50ce-11e8-b513-028a0ce7aef4
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: apache-prod
+        pod-template-hash: "1639748372"
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+          pod-template-hash: "1639748372"
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.3
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 13
+    replicas: 0
+- apiVersion: apps/v1beta2
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "5"
+    creationTimestamp: 2018-05-06T02:21:44Z
+    generation: 3
+    labels:
+      app: apache-prod
+      pod-template-hash: "4102733592"
+    name: apache-prod-deployment-8546c779f6
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: apache-prod-deployment
+      uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+    resourceVersion: "6276"
+    selfLink: /apis/apps/v1beta2/namespaces/default/replicasets/apache-prod-deployment-8546c779f6
+    uid: 3878d8a7-50d4-11e8-b513-028a0ce7aef4
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: apache-prod
+        pod-template-hash: "4102733592"
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+          pod-template-hash: "4102733592"
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.7
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1beta2
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "6"
+      deployment.kubernetes.io/revision-history: 2,4
+    creationTimestamp: 2018-05-06T02:11:35Z
+    generation: 8
+    labels:
+      app: apache-prod
+      pod-template-hash: "888356789"
+    name: apache-prod-deployment-ddd79bcdf
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: apache-prod-deployment
+      uid: 84782e69-50ce-11e8-8703-0aaa78b8c330
+    resourceVersion: "9099"
+    selfLink: /apis/apps/v1beta2/namespaces/default/replicasets/apache-prod-deployment-ddd79bcdf
+    uid: cd6e9ed2-50d2-11e8-b513-028a0ce7aef4
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: apache-prod
+        pod-template-hash: "888356789"
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: apache-prod
+          pod-template-hash: "888356789"
+      spec:
+        containers:
+        - image: lcarneirofreitas/image_test_apachephp:0.2
+          imagePullPolicy: IfNotPresent
+          name: webapp
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 8
+    readyReplicas: 2
+    replicas: 2
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubernetes.io/created-by: |
+        {"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"default","name":"apache-prod-deployment-ddd79bcdf","uid":"cd6e9ed2-50d2-11e8-b513-028a0ce7aef4","apiVersion":"extensions","resourceVersion":"6268"}}
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu request for container
+        webapp'
+    creationTimestamp: 2018-05-06T02:25:19Z
+    generateName: apache-prod-deployment-ddd79bcdf-
+    labels:
+      app: apache-prod
+      pod-template-hash: "888356789"
+    name: apache-prod-deployment-ddd79bcdf-75mj5
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: apache-prod-deployment-ddd79bcdf
+      uid: cd6e9ed2-50d2-11e8-b513-028a0ce7aef4
+    resourceVersion: "6299"
+    selfLink: /api/v1/namespaces/default/pods/apache-prod-deployment-ddd79bcdf-75mj5
+    uid: b88ac4cf-50d4-11e8-b513-028a0ce7aef4
+  spec:
+    containers:
+    - image: lcarneirofreitas/image_test_apachephp:0.2
+      imagePullPolicy: IfNotPresent
+      name: webapp
+      ports:
+      - containerPort: 80
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 100m
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-hgbbf
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    nodeName: ip-10-0-78-1.ec2.internal
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.alpha.kubernetes.io/notReady
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.alpha.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: default-token-hgbbf
+      secret:
+        defaultMode: 420
+        secretName: default-token-hgbbf
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2018-05-06T02:25:20Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2018-05-06T02:25:25Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: 2018-05-06T02:25:19Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://de167ff6f1ec8b5e9c783cbced36b90280a9c19609b1475d76ba1903595eea19
+      image: lcarneirofreitas/image_test_apachephp:0.2
+      imageID: docker-pullable://lcarneirofreitas/image_test_apachephp@sha256:3af71cce1a1ab9fef097d92afac8ed3bb813fdd4dd41bcb1dfc7027646b411ce
+      lastState: {}
+      name: webapp
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2018-05-06T02:25:24Z
+    hostIP: 10.0.78.1
+    phase: Running
+    podIP: 100.124.0.3
+    qosClass: Burstable
+    startTime: 2018-05-06T02:25:20Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubernetes.io/created-by: |
+        {"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"default","name":"apache-prod-deployment-ddd79bcdf","uid":"cd6e9ed2-50d2-11e8-b513-028a0ce7aef4","apiVersion":"extensions","resourceVersion":"9032"}}
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu request for container
+        webapp'
+    creationTimestamp: 2018-05-06T02:56:35Z
+    generateName: apache-prod-deployment-ddd79bcdf-
+    labels:
+      app: apache-prod
+      pod-template-hash: "888356789"
+    name: apache-prod-deployment-ddd79bcdf-f6x9p
+    namespace: default
+    ownerReferences:
+    - apiVersion: extensions/v1beta1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: apache-prod-deployment-ddd79bcdf
+      uid: cd6e9ed2-50d2-11e8-b513-028a0ce7aef4
+    resourceVersion: "9098"
+    selfLink: /api/v1/namespaces/default/pods/apache-prod-deployment-ddd79bcdf-f6x9p
+    uid: 16dbd3fe-50d9-11e8-8ae4-12de5d0a65c6
+  spec:
+    containers:
+    - image: lcarneirofreitas/image_test_apachephp:0.2
+      imagePullPolicy: IfNotPresent
+      name: webapp
+      ports:
+      - containerPort: 80
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 100m
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-hgbbf
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    nodeName: ip-10-0-78-1.ec2.internal
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.alpha.kubernetes.io/notReady
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.alpha.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: default-token-hgbbf
+      secret:
+        defaultMode: 420
+        secretName: default-token-hgbbf
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2018-05-06T02:56:35Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2018-05-06T02:56:36Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: 2018-05-06T02:56:35Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://f87f071dfd99a96fea690af766cfe01dfe43f10b75ef5520be7960569fe83819
+      image: lcarneirofreitas/image_test_apachephp:0.2
+      imageID: docker-pullable://lcarneirofreitas/image_test_apachephp@sha256:3af71cce1a1ab9fef097d92afac8ed3bb813fdd4dd41bcb1dfc7027646b411ce
+      lastState: {}
+      name: webapp
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2018-05-06T02:56:36Z
+    hostIP: 10.0.78.1
+    phase: Running
+    podIP: 100.124.0.5
+    qosClass: Burstable
+    startTime: 2018-05-06T02:56:35Z
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-05-06T01:42:26Z
+    name: apache-prod-loadbalancer
+    namespace: default
+    resourceVersion: "2078"
+    selfLink: /api/v1/namespaces/default/services/apache-prod-loadbalancer
+    uid: baf76d1e-50ce-11e8-b513-028a0ce7aef4
+  spec:
+    clusterIP: 100.69.85.105
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: apache
+      nodePort: 32367
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: apache-prod
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - hostname: abaf76d1e50ce11e8b513028a0ce7aef-752370091.us-east-1.elb.amazonaws.com
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-05-06T01:22:55Z
+    labels:
+      component: apiserver
+      provider: kubernetes
+    name: kubernetes
+    namespace: default
+    resourceVersion: "44"
+    selfLink: /api/v1/namespaces/default/services/kubernetes
+    uid: 00eca070-50cc-11e8-b513-028a0ce7aef4
+  spec:
+    clusterIP: 100.64.0.1
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    sessionAffinity: ClientIP
+    sessionAffinityConfig:
+      clientIP:
+        timeoutSeconds: 10800
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
