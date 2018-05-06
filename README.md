@@ -84,7 +84,7 @@ ssh admin@bastion.collystore.com.br
 kubectl -n kube-system get pod
 ```
 
-- enabling web interface dashboard kubernetes kops
+- install web interface dashboard kubernetes kops
 ```
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
