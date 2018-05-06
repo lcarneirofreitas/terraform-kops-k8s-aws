@@ -1,13 +1,7 @@
 
-
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 							#######################################
 							## TERRAFORM AND KOPS KUBERNETES AWS ##
 							#######################################
-
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 
 - install terraform
 -------------------
@@ -225,9 +219,6 @@ terraform destroy
 
 
 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 
 
 
@@ -257,12 +248,4 @@ http://rundeck.org/docs/administration/setting-up-an-rdb-datasource.html
 https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2
 
 
-- habilitando docker registry aws no kubernetes
------------------------------------------------
-
-kubectl create secret docker-registry my-docker-credentials \
-    --docker-server=https://136856413626.dkr.ecr.us-east-1.amazonaws.com \
-    --docker-username=AWS \
-    --docker-email=leandro.freitas@teravoz.com.br \
-    --docker-password=eyJwYXlsb2FkIjoiSExJcVd6amNVak5lSFFVNldxQVFQcHFDQWY5blhJb1hoUVFzMEx6amN5bDdUK2c0QkJnd0p5a3NsS1M1MlZ0WG5DMk5UaUlJMHVXVGV0L0dCekJGV3h2c3dVaUhlc3FUWW5uZEJISVdaZEFKVlBXNEJ4R2w3Q3UweEMvWFN0NWE4SVdNaStFOEszY2hxNEJ3UkZCbi92dGhvNkdKdXMrZ2NpS1Jqd0tDWWY1c0poRXQ3R3AxbHNEVlNkTnZTaWh3RldlaGwxN3ZVbWZTaXowKzRjMmtjbGFBWVRjMHl5QlEzempGbkNaY3pmM2xDMmVaWEFLSHk1aGhtT1NKZ05kUi83bDI5U3JaUmpsanJOL0YzL2RzdFFobEhvcURnYUE5YnExTnl0VlZvbmVaVC80NG1jSzFYdWRBL0pMeG5oYTNTL1RxeWlZbVNxalVzdkxESjdCL3N5TjY2SW52R0lFU1J4WElOSGx3aytYYnJNbUtXUGZMcVBqblZpZ1ZZU0tYanJnOXZSMm5qbllHSkZoRURPT09KMVAyWmx0b245QzZqV1kvUEtaNTlMNDFla0JqenNnWDhkUGh0Q0cxOUU0VjJDK0FMN2R0M08rK1FaR0NjaXFjNmlpcElqK3g5ZExzaXd3RE96em51cHJwRHBqUjkxVS9NdWQ0MW1oZmRTQUlQcUVJMU9pUi81Y0tXZjhYLzYrMGJjekQwNktaQng1Y3ZsYlRTeHZ1bGl6emNmYmw1bVNaMTQyRVRkMHVlV1l3bGJycDVETzVvRjVuSkluQ1NscVNCVnJaRmJtT3luM3dmZHl3VEZkWDNXK2o4OGhNaUhubFluZ2lkZVZJODE0bE9QUGQ1d05oZEhRU3hsNFh5cXBnT0VBVU1MNkJwUG0rVnZ3RHhnbUVKMkV3Q2w3bVZ6VCtMeWIzOFlWb0ZVa0dtN1pLbEMxc1h3R1d0OU8vSzdoNVl1SExOVlVLRkMzeFNrVldlWTVZNFU5QUFtQSs2VnRHTUprQVBiWDE1cWtBT1ljTk5YZ0lzdi9Tdm1MeEhNMzIwNitpQVdyNkdUQ0JzSzJJLzIyM0dydkE0SVV2LzdiSVl4eE1rMmtPL0h1TmFNSmp0dHJMbUwvNmhhOFRvdmZZWVJiYUd1RlA0TndCM0V6Y05LUVN3Z1NuRHZPNzc4TERnK2V2QkRHV3k0UXR2TG9ibXVISlJ1VHQ4N1FBSjd4My82K0FtVHhOT3BBRjBBWElUWEFrbmtuaHRSenozSHhTb1VsOFE3RmhIcHN2dnh2MmcwTnhNenk4Mm9OL0ljeE1mTWhhb1RmamlrNFdkQ0ZESVZqVHBRZFF3dTVPbWl4bTRyQ3oxa1dsTkZ0dzZUaG5ZV21SUDVBR2E0NHhVcGl5R1lPUjIzbDM3L2pEUkhITUtVVkh5bHI0M3NZZUlwVGxTanFJN0xlV1ZJLzVZMUlEWUxFR3NxcENrRzJ1RnBNPSIsImRhdGFrZXkiOiJBUUVCQUhod20wWWFJU0plUnRKbTVuMUc2dXFlZWtYdW9YWFBlNVVGY2U5UnE4LzE0d0FBQUg0d2ZBWUpLb1pJaHZjTkFRY0dvRzh3YlFJQkFEQm9CZ2txaGtpRzl3MEJCd0V3SGdZSllJWklBV1VEQkFFdU1CRUVETzFBakVCMGJ0TGk2Rnp6WUFJQkVJQTdsalhDTDJSWXBmTmRTK1BDZkpyeis4MGVDclZJaFh6VCtQYkVTc3hab0JWTFYxRzdPWHVVTVRZRlhCYjQvanpwR1VDQjhvYXJjclZtdXNnPSIsInZlcnNpb24iOiIyIiwidHlwZSI6IkRBVEFfS0VZIiwiZXhwaXJhdGlvbiI6MTUxMjYyMTUwMX0=
 
