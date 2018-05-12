@@ -209,6 +209,14 @@ watch -n1 'kubectl get nodes -o wide'
 
 ```
 
+- destroy ec2 
+```
+aws --region=us-east-1 ec2 describe-instances --filters "Name=instance-type,Values=t2.micro" --output json | grep -i instanceid
+
+aws --region=us-east-1 terminate-instances --instance-ids $INSTANCE_ID
+
+```
+
 - describe deployments
 ```
 kubectl describe deployments
