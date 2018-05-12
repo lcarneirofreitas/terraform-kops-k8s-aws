@@ -190,6 +190,17 @@ watch -n1 'kubectl get pod -o wide'
 kubectl get deployment apache-prod-deployment -o yaml > apache-prod-deployment.yaml
 ```
 
+- delete deployment and loadbalance
+```
+kubectl delete -f app1/prod/deployment.json
+
+kubectl delete -f app1/prod/loadbalance.json
+
+kubectl get deployment
+
+kubectl get service
+```
+
 - update nodes cluster kubernetes kops
 
 https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
