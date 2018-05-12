@@ -157,27 +157,27 @@ watch -n1 "curl -s $(kubectl describe services | grep -w "LoadBalancer Ingress" 
 - scale application apache + php
 ```
 kubectl scale --replicas=3 -f app1/prod/deployment.json
-watch -n1 'kubectl get pod'
+watch -n1 'kubectl get pod -o wide'
 ```
 
 - change image deploy
 ```
 sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.2#g' app1/prod/deployment.json
 kubectl apply -f app1/prod/deployment.json
-watch -n1 'kubectl get pod'
+watch -n1 'kubectl get pod -o wide'
 ```
 
 ```
 sed -i 's#lcarneirofreitas/image_test_apachephp:0.2#lcarneirofreitas/image_test_apachephp:0.3#g' app1/prod/deployment.json
 kubectl apply -f app1/prod/deployment.json
-watch -n1 'kubectl get pod'
+watch -n1 'kubectl get pod -o wide'
 ```
 
 - deploy with problems
 ```
 sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.7#g' app1/prod/deployment.json
 kubectl apply -f app1/prod/deployment.json
-watch -n1 'kubectl get pod'
+watch -n1 'kubectl get pod -o wide'
 ```
 
 - get yaml deployment
