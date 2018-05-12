@@ -215,6 +215,7 @@ aws --region=us-east-1 ec2 describe-instances --output json | grep -i instanceid
 
 aws --region=us-east-1 ec2 terminate-instances --instance-ids $INSTANCE_ID
 
+watch -n1 'kubectl get nodes -o wide'
 ```
 
 - describe deployments
