@@ -185,19 +185,6 @@ watch -n1 'kubectl get pod -o wide'
 kubectl get deployment apache-prod-deployment -o yaml > apache-prod-deployment.yaml
 ```
 
-- create deployment kafka
-
-https://github.com/kubernetes/contrib/tree/master/statefulsets/kafka
-```
-
-kubectl create -f https://raw.githubusercontent.com/kubernetes/contrib/master/statefulsets/kafka/kafka.yaml
-
-kubectl delete -f https://raw.githubusercontent.com/kubernetes/contrib/master/statefulsets/kafka/kafka.yaml
-
-```
-
-Obs: will not work because of memory resources and mounted volume
-
 - update nodes cluster kubernetes kops
 
 https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
