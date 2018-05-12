@@ -92,7 +92,7 @@ kops create cluster \
 ```
 kops validate cluster --state s3://kubernetes-state-collystore --name collystore.com.br
 
-kubectl get nodes --show-labels
+kubectl get nodes -o wide
 
 ssh admin@bastion.collystore.com.br
 
