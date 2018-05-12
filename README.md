@@ -1,4 +1,4 @@
-# Terraform And Kops Kubernetes Aws
+# Terraform + Kops + Kubernetes Aws
 
 - install terraform
 ```
