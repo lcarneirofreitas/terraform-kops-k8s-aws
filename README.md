@@ -131,7 +131,7 @@ kubectl create -f app1/prod/deployment.json
 
 - show new deployment
 ```
-kubectl get deployment
+kubectl get deployment -o wide
 ```
 
 - create loadbalance to access application
@@ -141,7 +141,7 @@ kubectl create -f app1/prod/loadbalancer.json
 
 - show new service
 ```
-kubectl get service
+kubectl get service -o wide
 ```
 
 - discovery dns loadbalance to access application
