@@ -61,7 +61,7 @@ Initializing the backend...
 region
   The region of the S3 bucket.
 
-  Enter a value: _us-east-1_
+  Enter a value: us-east-1
 ```
 
 ```
