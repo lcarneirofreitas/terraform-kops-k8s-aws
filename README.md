@@ -223,6 +223,7 @@ aws --region=us-east-1 ec2 terminate-instances --instance-ids $INSTANCE_ID
 watch -n1 'kubectl get nodes -o wide'
 ```
 
+# Destroy Environment
 
 - delete cluster kubernetes
 ```
