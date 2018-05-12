@@ -204,6 +204,9 @@ master-us-east-1a	Master	m4.large	0	0	us-east-1a
 master-us-east-1b	Master	m4.large	1	1	us-east-1b
 master-us-east-1c	Master	m4.large	1	1	us-east-1c
 nodes			Node	t2.micro	1	1	us-east-1a,us-east-1b,us-east-1c
+
+watch -n1 'kubectl get nodes -o wide'
+
 ```
 
 - describe deployments
