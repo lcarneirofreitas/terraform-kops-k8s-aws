@@ -134,6 +134,11 @@ kubectl create -f app1/prod/deployment.json
 kubectl get deployment -o wide
 ```
 
+- describe deployments
+```
+kubectl describe deployments
+```
+
 - create loadbalance to access application
 ```
 kubectl create -f app1/prod/loadbalancer.json
@@ -218,10 +223,6 @@ aws --region=us-east-1 ec2 terminate-instances --instance-ids $INSTANCE_ID
 watch -n1 'kubectl get nodes -o wide'
 ```
 
-- describe deployments
-```
-kubectl describe deployments
-```
 
 - delete cluster kubernetes
 ```
