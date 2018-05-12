@@ -129,9 +129,19 @@ cd kubernetes
 kubectl create -f app1/prod/deployment.json
 ```
 
+- show new deployment
+```
+kubectl get deployment
+```
+
 - create loadbalance to access application
 ```
 kubectl create -f app1/prod/loadbalancer.json
+```
+
+- show new service
+```
+kubectl get service
 ```
 
 - discovery dns loadbalance to access application
