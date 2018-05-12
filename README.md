@@ -101,7 +101,7 @@ kubectl -n kube-system get pod
 
 - copy key to access the other servers in the cluster
 ```
-scp -pvr /home/leandro/.ssh/id_rsa admin@bastion.collystore.com.br:/home/admin/.ssh/
+scp -pvr /home/user/.ssh/id_rsa admin@bastion.collystore.com.br:/home/admin/.ssh/
 ```
 
 - install web interface dashboard kubernetes kops
