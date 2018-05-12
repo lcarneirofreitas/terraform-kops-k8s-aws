@@ -236,7 +236,7 @@ terraform destroy
 
 ```
 
-- References
+# References
 
 https://aws.amazon.com/blogs/compute/kubernetes-clusters-aws-kops/
 
