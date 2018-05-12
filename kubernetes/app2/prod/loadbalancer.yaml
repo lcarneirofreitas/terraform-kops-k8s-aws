@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: apache-prod-loadbalancer-2
+spec:
+  ports:
+  - name: apache
+    port: 80
+    targetPort: 80
+  selector:
+    app: apache-prod-2
+  type: LoadBalancer

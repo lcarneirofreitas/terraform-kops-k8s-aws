@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: apache-prod-deployment-2
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: apache-prod-2
+    spec:
+      containers:
+      - name: webapp
+        image: lcarneirofreitas/image_test_apachephp:0.2
+        ports:
+        - containerPort: 80
