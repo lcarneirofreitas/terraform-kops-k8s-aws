@@ -22,10 +22,15 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 ```
 
-- create amazon s3
+- create s3 buckets
 ```
 aws --region=us-east-1 s3api create-bucket --bucket kubernetes-state-collystore
 aws --region=us-east-1 s3api create-bucket --bucket terraform-state-collystore
+```
+
+- show s3 buckets
+```
+aws s3 ls
 ```
 
 - versioning amazon s3
