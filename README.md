@@ -157,7 +157,7 @@ watch -n1 "curl -s $(kubectl describe services | grep -w "LoadBalancer Ingress" 
 - scale application apache + php
 ```
 kubectl scale --replicas=3 -f app1/prod/deployment.json
-watch -n1 'kubectl get pod
+watch -n1 'kubectl get pod'
 ```
 
 - change image deploy
