@@ -56,7 +56,17 @@ aws route53 create-hosted-zone \
 ```
 cd terraform && \
 terraform init
+
+Initializing the backend...
+region
+  The region of the S3 bucket.
+
+  Enter a value: us-east-1
+```
+
+```
 terraform plan
+
 terraform apply
 ```
 
