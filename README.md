@@ -190,6 +190,45 @@ watch -n1 'kubectl get pod -o wide'
 kubectl get deployment apache-prod-deployment -o yaml > apache-prod-deployment.yaml
 ```
 
+- delete deployment and loadbalance
+```
+kubectl delete -f app1/prod/deployment.json
+
+kubectl delete -f app1/prod/loadbalance.json
+
+kubectl get deployment
+
+kubectl get service
+```
+
+- tests horizontal pod autoscaling (metrics and influxdb)
+
+https://github.com/kubernetes/heapster/blob/master/deploy/kube-config/influxdb/heapster.yaml
+```
+git clone git@github.com:kubernetes-incubator/metrics-server.git
+
+kubectl create -f metrics-server/deploy/1.8+/
+
+kubectl create -f helpers/heapster.yaml
+```
+
+- stress test example
+```
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+
+kubectl run -i --tty load-generator --image=busybox /bin/sh
+
+while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+```
+
+```
+watch -n1 'kubectl get hpa'
+
+watch -n1 'kubectl get pod'
+```
+
 - update nodes cluster kubernetes kops
 
 https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
@@ -223,6 +262,7 @@ aws --region=us-east-1 ec2 terminate-instances --instance-ids $INSTANCE_ID
 watch -n1 'kubectl get nodes -o wide'
 ```
 
+# Destroy Environment
 
 - delete cluster kubernetes
 ```
@@ -235,7 +275,7 @@ terraform destroy
 
 ```
 
-- References
+# References
 
 https://aws.amazon.com/blogs/compute/kubernetes-clusters-aws-kops/
 
