@@ -168,6 +168,15 @@ cp helpers/route53-app1.tf terraform/
 vim terraform/route53-app1.tf
 ```
 
+- apply change terraform
+```
+cd terraform
+
+terraform plan
+
+terraform apply 
+```
+
 - validade access to application
 ```
 watch -n1 "curl -s http://app1.collystore.com.br"
