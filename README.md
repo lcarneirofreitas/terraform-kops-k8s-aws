@@ -162,9 +162,15 @@ kubectl get service -o wide
 kubectl describe services | grep -w "LoadBalancer Ingress"
 ```
 
+- create dns entry for app1 associated with loadbalance address
+```
+cp helpers/route53-app1.tf terraform/
+vim terraform/route53-app1.tf
+```
+
 - validade access to application
 ```
-watch -n1 "curl -s $(kubectl describe services | grep -w "LoadBalancer Ingress" | awk '{print $3}')"
+watch -n1 "curl -s http://app1.collystore.com.br"
 ```
 
 - scale application apache + php
@@ -198,17 +204,6 @@ watch -n1 'kubectl get pod -o wide'
 kubectl get deployment apache-prod-deployment -o yaml > apache-prod-deployment.yaml
 ```
 
-- delete deployment and loadbalance
-```
-kubectl delete -f app1/prod/deployment.json
-
-kubectl delete -f app1/prod/loadbalance.json
-
-kubectl get deployment
-
-kubectl get service
-```
-
 - tests horizontal pod autoscaling (metrics and influxdb)
 
 https://github.com/kubernetes/heapster/blob/master/deploy/kube-config/influxdb/heapster.yaml
@@ -222,19 +217,27 @@ kubectl create -f helpers/heapster.yaml
 
 - stress test example
 ```
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl autoscale deployment apache-prod-deployment --cpu-percent=50 --min=2 --max=10
 
-kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+ab -k -c 100 -n 100000 http://app1.collystore.com.br/
 
-kubectl run -i --tty load-generator --image=busybox /bin/sh
-
-while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 ```
 
 ```
 watch -n1 'kubectl get hpa'
 
 watch -n1 'kubectl get pod'
+```
+
+- delete deployment and loadbalance
+```
+kubectl delete -f app1/prod/deployment.json
+
+kubectl delete -f app1/prod/loadbalance.json
+
+kubectl get deployment
+
+kubectl get service
 ```
 
 - update nodes cluster kubernetes kops
