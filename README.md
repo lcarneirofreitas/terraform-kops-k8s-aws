@@ -253,13 +253,14 @@ kubectl get service
 
 https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
 ```
-kops edit ig nodes
+kops edit ig nodes --state=s3://kubernetes-state-collystore
 
-kops update cluster collystore.com.br --yes
+kops update cluster collystore.com.br --state=s3://kubernetes-state-collystore --yes
 
-kops rolling-update cluster
+kops rolling-update cluster --state=s3://kubernetes-state-collystore
 
-kops get ig
+kops get ig --state=s3://kubernetes-state-collystore
+
 Using cluster from kubectl context: collystore.com.br
 
 NAME			ROLE	MACHINETYPE	MIN	MAX	ZONES
