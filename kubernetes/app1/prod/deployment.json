@@ -16,7 +16,7 @@
         "containers": [
           {
             "name": "webapp",
-            "image": "lcarneirofreitas/image_test_apachephp:0.2",
+            "image": "lcarneirofreitas/image_test_apachephp:0.3",
             "ports": [
               {
                 "containerPort": 80

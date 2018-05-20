@@ -215,7 +215,7 @@ https://github.com/kubernetes/heapster/blob/master/deploy/kube-config/influxdb/h
 ```
 git clone git@github.com:kubernetes-incubator/metrics-server.git
 
-kubectl create -f metrics-server/deploy/1.8+/
+kubectl create -f helpers/metrics-server/deploy/1.8+/
 
 kubectl create -f helpers/heapster.yaml
 ```
