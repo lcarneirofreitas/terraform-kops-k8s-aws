@@ -109,6 +109,14 @@ scp -pvr /home/user/.ssh/id_rsa admin@bastion.collystore.com.br:/home/admin/.ssh
 kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
 
+- granting admin privileges to Dashboard's Service Account ()
+
+https://github.com/kubernetes/dashboard/wiki/Access-control
+
+```
+kubectl create -f kubernetes/helpers/dashboard-admin.yaml
+```
+
 - access 1
 ```
 kubectl proxy
