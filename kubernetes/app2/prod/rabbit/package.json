@@ -1,0 +1,17 @@
+{
+  "name": "rabbit-consumer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-producer": "ID=$(uuidgen) QUEUE=test REPLY_TO=test-reply node producer",
+    "start-consumer": "ID=$(uuidgen) QUEUE=test node consumer"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "uuid": "^3.2.1"
+  }
+}
