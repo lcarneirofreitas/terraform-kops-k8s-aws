@@ -29,6 +29,10 @@ kubectl apply -f consumer-deployment.yaml
 ```
 kubectl port-forward deployment/rabbitmq 15672:15672
 
+or
+
+kubectl port-forward rabbitmq-566bfd8f45-j6fp4 15672:15672
+
 http://127.0.0.1:15672
 
 user: guest
@@ -55,17 +59,7 @@ kubectl scale deployment consumer --replicas=1
 kubectl set image deployments/consumer consumer=lcarneirofreitas/consumer:v2
 ```
 
-
-
-
-
-# referencias
+# references
 https://kubernetes.io/docs/tutorials/hello-minikube/
 
-# redis exemplos
 https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
-
-# port-forward para acessar admin rabbitmq
-kubectl port-forward rabbitmq-566bfd8f45-j6fp4 15672:15672
-
-
