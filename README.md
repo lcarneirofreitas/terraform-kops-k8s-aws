@@ -164,7 +164,7 @@ kubectl get service -o wide
 
 - discovery dns loadbalance to access application
 ```
-kubectl describe services | grep -w "LoadBalancer Ingress"
+kubectl describe services apache-prod-loadbalancer
 ```
 
 - create dns entry for app1 associated with loadbalance address
