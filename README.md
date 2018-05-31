@@ -311,6 +311,22 @@ kubectl apply -f app2/prod/rabbit/k8s/consumer-deployment.yaml
 watch -n1 'kubectl get pod -o wide'
 ```
 
+- delete deployment and loadbalance
+```
+kubectl delete -f app2/prod/rabbit/k8s/consumer-deployment.yaml
+
+kubectl delete -f app2/prod/rabbit/k8s/producer-deployment.yaml
+
+kubectl delete -f app2/prod/rabbit/k8s/rabbitmq-deployment.yaml
+
+kubectl delete -f app2/prod/rabbit/k8s/rabbitmq-service.yaml 
+
+kubectl get deployment
+
+kubectl get service
+```
+
+
 # Tests autoscaling nodes kops
 
 - update nodes cluster kubernetes kops
