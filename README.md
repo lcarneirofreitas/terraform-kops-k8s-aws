@@ -172,12 +172,6 @@ kubectl describe services apache-prod-loadbalancer
 sed -i "s#my-load-balance#$(kubectl describe services apache-prod-loadbalancer | grep 'LoadBalancer Ingress' | awk '{print $3}')#g" helpers/route53-app1.tf
 
 mv helpers/route53-app1.tf terraform/
-
-cd terraform
-
-terraform plan
-
-terraform apply
 ```
 
 - apply change terraform
