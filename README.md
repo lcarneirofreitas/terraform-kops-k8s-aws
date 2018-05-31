@@ -216,7 +216,7 @@ watch -n1 'kubectl get pod -o wide'
 
 - get yaml deployment
 ```
-kubectl get deployment apache-prod-deployment -o yaml > apache-prod-deployment.yaml
+kubectl get deployment apache-prod-deployment -o yaml > /tmp/apache-prod-deployment.yaml && /tmp/apache-prod-deployment.yaml
 ```
 
 - tests horizontal pod autoscaling (metrics and influxdb)
