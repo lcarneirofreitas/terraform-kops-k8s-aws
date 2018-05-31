@@ -169,8 +169,15 @@ kubectl describe services apache-prod-loadbalancer
 
 - create dns entry for app1 associated with loadbalance address
 ```
-cp helpers/route53-app1.tf terraform/
-vim terraform/route53-app1.tf
+sed -i "s#my-load-balance#$(kubectl describe services apache-prod-loadbalancer | grep 'LoadBalancer Ingress' | awk '{print $3}')#g" helpers/route53-app1.tf
+
+mv helpers/route53-app1.tf terraform/
+
+cd terraform
+
+terraform plan
+
+terraform apply
 ```
 
 - apply change terraform
