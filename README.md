@@ -94,8 +94,6 @@ kops validate cluster --state s3://kubernetes-state-collystore --name collystore
 
 kubectl get nodes -o wide
 
-ssh admin@bastion.collystore.com.br
-
 kubectl -n kube-system get pod
 ```
 
@@ -107,6 +105,8 @@ view ~/.kube/config
 - copy key to access the other servers in the cluster
 ```
 scp -pvr /home/user/.ssh/id_rsa admin@bastion.collystore.com.br:/home/admin/.ssh/
+
+ssh admin@bastion.collystore.com.br
 ```
 
 - install web interface dashboard kubernetes kops
