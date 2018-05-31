@@ -244,6 +244,17 @@ watch -n1 'kubectl get hpa'
 watch -n1 'kubectl get pod'
 ```
 
+- delete deployment and loadbalance
+```
+kubectl delete -f app1/prod/deployment.json
+
+kubectl delete -f app1/prod/loadbalancer.json
+
+kubectl get deployment
+
+kubectl get service
+```
+
 # Tests App2 Kubernetes
 
 - deploy rabbitmq
@@ -300,17 +311,7 @@ kubectl apply -f app2/prod/rabbit/k8s/consumer-deployment.yaml
 watch -n1 'kubectl get pod -o wide'
 ```
 
-
-- delete deployment and loadbalance
-```
-kubectl delete -f app1/prod/deployment.json
-
-kubectl delete -f app1/prod/loadbalancer.json
-
-kubectl get deployment
-
-kubectl get service
-```
+# Tests autoscaling nodes kops
 
 - update nodes cluster kubernetes kops
 
