@@ -20,9 +20,9 @@ spec:
         #  requests:
         #    cpu: 100m
         #    memory: 100Mi
-        env:
-        - name: GET_HOSTS_FROM
-          value: dns
+        #env:
+        #- name: GET_HOSTS_FROM
+        #  value: dns
           # Using `GET_HOSTS_FROM=dns` requires your cluster to
           # provide a dns service. As of Kubernetes 1.3, DNS is a built-in
           # service launched automatically. However, if the cluster you are using

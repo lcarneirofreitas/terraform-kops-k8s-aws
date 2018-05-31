@@ -134,7 +134,7 @@ kubectl config view --minify
 ```
 https://api.collystore.com.br/ui/
 
-# Tests Kubernetes
+# Tests App1 Kubernetes
 
 - create pod server apache + php
 ```
@@ -243,6 +243,63 @@ watch -n1 'kubectl get hpa'
 
 watch -n1 'kubectl get pod'
 ```
+
+# Tests App2 Kubernetes
+
+- deploy rabbitmq
+```
+kubectl apply -f app2/prod/rabbit/k8s/rabbitmq-deployment.yaml
+```
+
+- deploy service rabbitmq
+```
+kubectl apply -f app2/prod/rabbit/k8s/rabbitmq-service.yaml
+```
+
+- deploy producer
+```
+kubectl apply -f app2/prod/rabbit/k8s/producer-deployment.yaml
+```
+
+- deploy consumer
+```
+kubectl apply -f app2/prod/rabbit/k8s/consumer-deployment.yaml
+```
+
+- access admin rabbitmq port-forward kubernetes
+```
+kubectl port-forward rabbitmq-67b94c7d77-l7xn2 15672:15672
+
+Forwarding from 127.0.0.1:15672 -> 15672
+
+user: guest
+pass: guest
+```
+
+- get logs pod consumer or producer
+```
+kubectl logs -f producer-64b6945654-sw4xw
+```
+
+- remove consumer pod
+```
+kubectl scale deployment consumer --replicas=0
+```
+
+- add consumer pod
+```
+kubectl scale deployment consumer --replicas=1
+```
+
+- update version image pod
+```
+sed -i 's#lcarneirofreitas/consumer#lcarneirofreitas/consumer:v2#g' app2/prod/rabbit/k8s/consumer-deployment.yaml
+
+kubectl apply -f app2/prod/rabbit/k8s/consumer-deployment.yaml
+
+watch -n1 'kubectl get pod -o wide'
+```
+
 
 - delete deployment and loadbalance
 ```
