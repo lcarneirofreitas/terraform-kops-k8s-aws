@@ -234,7 +234,7 @@ kubectl create -f helpers/heapster.yaml
 ```
 kubectl autoscale deployment apache-prod-deployment --cpu-percent=50 --min=2 --max=10
 
-ab -k -c 100 -n 100000 http://app1.collystore.com.br/
+ab -k -c 100 -n 200000 http://app1.collystore.com.br/
 
 ```
 
