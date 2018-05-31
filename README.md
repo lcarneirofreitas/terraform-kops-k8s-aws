@@ -248,7 +248,7 @@ watch -n1 'kubectl get pod'
 ```
 kubectl delete -f app1/prod/deployment.json
 
-kubectl delete -f app1/prod/loadbalance.json
+kubectl delete -f app1/prod/loadbalancer.json
 
 kubectl get deployment
 
