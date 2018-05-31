@@ -99,6 +99,11 @@ ssh admin@bastion.collystore.com.br
 kubectl -n kube-system get pod
 ```
 
+- validating context kubernetes aws
+```
+view ~/.kube/config
+```
+
 - copy key to access the other servers in the cluster
 ```
 scp -pvr /home/user/.ssh/id_rsa admin@bastion.collystore.com.br:/home/admin/.ssh/
