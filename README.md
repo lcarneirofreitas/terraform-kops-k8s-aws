@@ -26,6 +26,7 @@ sudo mv kubectl /usr/local/bin/
 ```
 export DOMAIN_K8S="DOMAIN NAME HERE"
 echo $DOMAIN_K8S
+```
 
 - create s3 buckets
 ```
