@@ -22,6 +22,20 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 ```
 
+- install awscli
+```
+pip install awscli
+```
+
+- save aws credentials to run awscli
+```
+cat .aws/credentials
+[default]
+aws_access_key_id = XXXXXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+output = text
+```
+
 - export domain name
 ```
 export DOMAIN_K8S="DOMAIN NAME HERE"
