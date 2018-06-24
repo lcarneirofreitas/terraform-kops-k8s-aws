@@ -22,10 +22,15 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 ```
 
+- export domain name
+```
+export DOMAIN_K8S="DOMAIN NAME HERE"
+echo $DOMAIN_K8S
+
 - create s3 buckets
 ```
-aws --region=us-east-1 s3api create-bucket --bucket kubernetes-state-collystore
-aws --region=us-east-1 s3api create-bucket --bucket terraform-state-collystore
+aws --region=us-east-1 s3api create-bucket --bucket kubernetes-state-$DOMAIN_K8S
+aws --region=us-east-1 s3api create-bucket --bucket terraform-state-$DOMAIN_K8S
 ```
 
 - show s3 buckets
@@ -35,20 +40,21 @@ aws s3 ls
 
 - versioning amazon s3
 ```
-aws --region=us-east-1 s3api put-bucket-versioning --bucket kubernetes-state-collystore --versioning-configuration Status=Enabled
-aws --region=us-east-1 s3api put-bucket-versioning --bucket terraform-state-collystore --versioning-configuration Status=Enabled
+aws --region=us-east-1 s3api put-bucket-versioning --bucket kubernetes-state-$DOMAIN_K8S --versioning-configuration Status=Enabled
+aws --region=us-east-1 s3api put-bucket-versioning --bucket terraform-state-$DOMAIN_K8S --versioning-configuration Status=Enabled
 ```
 
 - export s3 bucket to kops
 ```
-export KOPS_STATE_STORE=s3://kubernetes-state-collystore
+export KOPS_STATE_STORE=s3://kubernetes-state-$DOMAIN_K8S
+echo $KOPS_STATE_STORE
 ```
 
 - configure dns route53 amazon
 ```
 ID=$(uuidgen) && \
 aws route53 create-hosted-zone \
---name collystore.com.br \
+--name $DOMAIN_K8S \
 --caller-reference $ID
 ```
 
@@ -70,17 +76,17 @@ terraform plan
 terraform apply
 ```
 
-- create cluster kubernetes kops
+- create cluster kubernetes kops (get the result of the previous command and feed the $VPC variable)
 ```
 kops create cluster \
-    --name collystore.com.br \
+    --name $DOMAIN_K8S \
     --node-count 2 \
     --zones us-east-1a,us-east-1b,us-east-1c \
     --master-zones us-east-1a,us-east-1b,us-east-1c \
     --node-size t2.micro \
     --master-size m4.large \
-    --dns-zone collystore.com.br \
-    --state s3://kubernetes-state-collystore \
+    --dns-zone $DOMAIN_K8S \
+    --state s3://kubernetes-state-$DOMAIN_K8S \
     --topology private \
     --networking weave \
     --bastion=true \
@@ -90,7 +96,7 @@ kops create cluster \
 
 - validating cluster kubernetes
 ```
-kops validate cluster --state s3://kubernetes-state-collystore --name collystore.com.br
+kops validate cluster --state s3://kubernetes-state-$DOMAIN_K8S --name $DOMAIN_K8S
 
 kubectl get nodes -o wide
 
@@ -104,9 +110,9 @@ view ~/.kube/config
 
 - copy key to access the other servers in the cluster
 ```
-scp -pvr /home/user/.ssh/id_rsa admin@bastion.collystore.com.br:/home/admin/.ssh/
+scp -pvr /home/user/.ssh/id_rsa admin@bastion.$DOMAIN_K8S:/home/admin/.ssh/
 
-ssh admin@bastion.collystore.com.br
+ssh admin@bastion.$DOMAIN_K8S
 ```
 
 - install web interface dashboard kubernetes kops
@@ -132,7 +138,7 @@ http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-da
 ```
 kubectl config view --minify
 ```
-https://api.collystore.com.br/ui/
+https://api.$DOMAIN_K8S/ui/
 
 # Tests App1 Kubernetes
 
@@ -185,7 +191,7 @@ terraform apply
 
 - validade access to application
 ```
-watch -n1 "curl -s http://app1.collystore.com.br"
+watch -n1 "curl -s http://app1.$DOMAIN_K8S"
 ```
 
 - scale application apache + php
@@ -234,7 +240,7 @@ kubectl create -f helpers/heapster.yaml
 ```
 kubectl autoscale deployment apache-prod-deployment --cpu-percent=50 --min=2 --max=10
 
-ab -k -c 100 -n 200000 http://app1.collystore.com.br/
+ab -k -c 100 -n 200000 http://app1.$DOMAIN_K8S/
 
 ```
 
@@ -333,15 +339,15 @@ kubectl get service
 
 https://github.com/kubernetes/kops/blob/master/docs/instance_groups.md
 ```
-kops edit ig nodes --state=s3://kubernetes-state-collystore
+kops edit ig nodes --state=s3://kubernetes-state-$DOMAIN_K8S
 
-kops update cluster collystore.com.br --state=s3://kubernetes-state-collystore --yes
+kops update cluster $DOMAIN_K8S --state=s3://kubernetes-state-$DOMAIN_K8S --yes
 
-kops rolling-update cluster --state=s3://kubernetes-state-collystore
+kops rolling-update cluster --state=s3://kubernetes-state-$DOMAIN_K8S
 
-kops get ig --state=s3://kubernetes-state-collystore
+kops get ig --state=s3://kubernetes-state-$DOMAIN_K8S
 
-Using cluster from kubectl context: collystore.com.br
+Using cluster from kubectl context: $DOMAIN_K8S
 
 NAME			ROLE	MACHINETYPE	MIN	MAX	ZONES
 bastions		Bastion	t2.micro	1	1	us-east-1a,us-east-1b,us-east-1c
@@ -367,7 +373,7 @@ watch -n1 'kubectl get nodes -o wide'
 
 - delete cluster kubernetes
 ```
-kops delete cluster --state=s3://kubernetes-state-collystore collystore.com.br --yes
+kops delete cluster --state=s3://kubernetes-state-$DOMAIN_K8S $DOMAIN_K8S --yes
 ```
 
 - delete networks terraform
