@@ -1,9 +1,10 @@
 # Terraform + Kops + Kubernetes Aws
 
 
-- Slides
+- Infraestructure as code and kubernetes concepts
 
-https://docs.google.com/presentation/d/1grIU7QATFkZTAm1DG3VivDA_jmc_mQmWnqNgo8Vt2D4/edit?usp=sharing
+https://pt.slideshare.net/LeandroFreitas29/terraform-kops-kubernetes-na-aws
+
 
 - install terraform
 ```
