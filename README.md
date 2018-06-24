@@ -1,5 +1,10 @@
 # Terraform + Kops + Kubernetes Aws
 
+
+- Slides
+
+https://docs.google.com/presentation/d/1grIU7QATFkZTAm1DG3VivDA_jmc_mQmWnqNgo8Vt2D4/edit?usp=sharing
+
 - install terraform
 ```
 curl -LO https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
