@@ -79,6 +79,11 @@ aws route53 create-hosted-zone \
 --caller-reference $ID
 ```
 
+- change domain k8s backend.tf file
+```
+sed -i "s#domain_k8s#`echo $DOMAIN_K8S`#g" terraform/backend.tf
+```
+
 - running terraform plan and apply
 ```
 cd terraform && \
@@ -146,7 +151,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/
 https://github.com/kubernetes/dashboard/wiki/Access-control
 
 ```
-kubectl create -f kubernetes/helpers/dashboard-admin.yaml
+kubectl create -f kubernetes/helpers/admin/dashboard-admin.yaml
 ```
 
 - access 1
@@ -166,7 +171,7 @@ https://api.$DOMAIN_K8S/ui/
 - create pod server apache + php
 ```
 cd kubernetes
-kubectl create -f app1/prod/deployment.json
+kubectl create -f tests/app1/prod/deployment.json
 ```
 
 - show new deployment
@@ -181,7 +186,7 @@ kubectl describe deployments
 
 - create loadbalance to access application
 ```
-kubectl create -f app1/prod/loadbalancer.json
+kubectl create -f tests/app1/prod/loadbalancer.json
 ```
 
 - show new service
@@ -217,27 +222,27 @@ watch -n1 "curl -s http://app1.$DOMAIN_K8S"
 
 - scale application apache + php
 ```
-kubectl scale --replicas=3 -f app1/prod/deployment.json
+kubectl scale --replicas=3 -f tests/app1/prod/deployment.json
 watch -n1 'kubectl get pod -o wide'
 ```
 
 - change image deploy
 ```
-sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.2#g' app1/prod/deployment.json
-kubectl apply -f app1/prod/deployment.json
+sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.2#g' tests/app1/prod/deployment.json
+kubectl apply -f tests/app1/prod/deployment.json
 watch -n1 'kubectl get pod -o wide'
 ```
 
 ```
-sed -i 's#lcarneirofreitas/image_test_apachephp:0.2#lcarneirofreitas/image_test_apachephp:0.3#g' app1/prod/deployment.json
-kubectl apply -f app1/prod/deployment.json
+sed -i 's#lcarneirofreitas/image_test_apachephp:0.2#lcarneirofreitas/image_test_apachephp:0.3#g' tests/app1/prod/deployment.json
+kubectl apply -f tests/app1/prod/deployment.json
 watch -n1 'kubectl get pod -o wide'
 ```
 
 - deploy with problems
 ```
-sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.7#g' app1/prod/deployment.json
-kubectl apply -f app1/prod/deployment.json
+sed -i 's#lcarneirofreitas/image_test_apachephp:0.3#lcarneirofreitas/image_test_apachephp:0.7#g' tests/app1/prod/deployment.json
+kubectl apply -f tests/app1/prod/deployment.json
 watch -n1 'kubectl get pod -o wide'
 ```
 
@@ -252,9 +257,9 @@ https://github.com/kubernetes/heapster/blob/master/deploy/kube-config/influxdb/h
 ```
 git clone git@github.com:kubernetes-incubator/metrics-server.git
 
-kubectl create -f helpers/metrics-server/deploy/1.8+/
+kubectl create -f helpers/admin/metrics-server/deploy/1.8+/
 
-kubectl create -f helpers/heapster.yaml
+kubectl create -f helpers/admin/heapster.yaml
 ```
 
 - stress test example
@@ -273,9 +278,9 @@ watch -n1 'kubectl get pod'
 
 - delete deployment and loadbalance
 ```
-kubectl delete -f app1/prod/deployment.json
+kubectl delete -f tests/app1/prod/deployment.json
 
-kubectl delete -f app1/prod/loadbalancer.json
+kubectl delete -f tests/app1/prod/loadbalancer.json
 
 kubectl get deployment
 

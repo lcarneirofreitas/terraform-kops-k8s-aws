@@ -3,7 +3,7 @@
 ####################
 terraform {
   backend "s3" {
-    bucket = "terraform-state-$DOMAIN_K8S"
+    bucket = "terraform-state-domain_k8s"
     key = "terraform/terraform.tfstate"
   }
 }
