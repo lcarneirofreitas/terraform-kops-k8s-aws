@@ -136,7 +136,7 @@ view ~/.kube/config
 
 - copy key to access the other servers in the cluster
 ```
-scp -pvr /home/user/.ssh/id_rsa admin@bastion.$DOMAIN_K8S:/home/admin/.ssh/
+scp -pvr /home/$(whoami)/.ssh/id_rsa admin@bastion.$DOMAIN_K8S:/home/admin/.ssh/
 
 ssh admin@bastion.$DOMAIN_K8S
 ```
