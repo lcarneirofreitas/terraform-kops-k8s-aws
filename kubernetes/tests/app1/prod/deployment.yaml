@@ -11,6 +11,6 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: lcarneirofreitas/image_test_apachephp:0.2
+        image: lcarneirofreitas/image_test_apachephp:0.9.1
         ports:
         - containerPort: 80

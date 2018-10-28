@@ -1,0 +1,5 @@
+<?php
+echo "<H1>My container id: " . gethostname() . "</H1>";
+echo "\n";
+echo "<H2>My ipaddress: " . $_SERVER['SERVER_ADDR'] . "</H2>";
+?>
